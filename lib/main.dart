@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:grocery_app/Pages/IntroPage.dart';
 import 'package:provider/provider.dart';
-
-import 'IntroPage.dart';
 import 'cart_model.dart';
 
 void main() {
@@ -9,7 +8,7 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,6 +17,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         home: IntroScreen(),
+        // Set BottomNavigationPage as the home
       ),
     );
   }

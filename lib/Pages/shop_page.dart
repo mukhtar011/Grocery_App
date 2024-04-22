@@ -1,72 +1,64 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:grocery_app/Pages/search_page.dart';
 import 'package:provider/provider.dart';
-import 'cart_model.dart';
-import 'cart_page.dart';
-import 'grocery_item_tile.dart';
+import '../cart_model.dart';
+import '../grocery_item_tile.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+
+class ShopPage extends StatefulWidget {
+   ShopPage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<ShopPage> createState() => _ShopPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _ShopPageState extends State<ShopPage> {
+  String _searchQuery = ''; // Store the search query
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leading: Padding(
-          padding: const EdgeInsets.only(left: 24.0),
-          child: Icon(
-            Icons.location_on,
-            color: Colors.grey[700],
-          ),
-        ),
-        title: Text(
-          'Karachi, Pakistan',
-          style: TextStyle(
-            fontSize: 16,
-            color: Colors.grey[700],
-          ),
-        ),
-        centerTitle: false,
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 24.0),
-            child: Container(
-              padding: EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: Colors.grey[200],
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Icon(
-                Icons.person,
-                color: Colors.grey,
-              ),
-            ),
-          ),
-        ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.black,
-        onPressed: () => Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) {
-              return CartPage();
-            },
-          ),
-        ),
-        child: const Icon(Icons.shopping_bag),
-      ),
+     // backgroundColor: Colors.white70,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SizedBox(height: 48),
+          const SizedBox(height: 40),
+            Container(
+             padding: const EdgeInsets.all(12),
+              margin: const EdgeInsets.symmetric(horizontal: 20),
+              decoration: BoxDecoration(
+                color: Colors.grey[200],
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child:  Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: TextField(
+                      onChanged: (value) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => SearchPage(query: value),
+                          ),
+                        );
+                      },
+                      decoration: InputDecoration(
+                        hintText: 'Search',
+                        border: InputBorder.none,
+                      ),
+                    ),
+                  ),
+                  Icon(
+                    Icons.search,
+                    color: Colors.grey,
+                  ),
+                ],
+              ),
+            ),
+          const SizedBox(height: 28),
 
           // good morning bro
           const Padding(
@@ -115,7 +107,7 @@ class _HomePageState extends State<HomePage> {
               builder: (context, value, child) {
                 return GridView.builder(
                   padding: const EdgeInsets.all(12),
-                  physics: const NeverScrollableScrollPhysics(),
+                  physics: const AlwaysScrollableScrollPhysics(),
                   itemCount: value.shopItems.length,
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
